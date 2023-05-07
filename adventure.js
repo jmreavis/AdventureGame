@@ -103,7 +103,7 @@ class AdventureScene extends Phaser.Scene {
         });
     }
 
-    deEmphasizeItem(item)
+    deEmphasizeItem(item)//emphasizeItem helper method
     {
         this.tweens.add ({
             targets: item,
