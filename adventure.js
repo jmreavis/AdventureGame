@@ -91,14 +91,23 @@ class AdventureScene extends Phaser.Scene {
         });
     }
 
+    spriteRemove(item) {//new engine method
+        this.tweens.add({
+            targets: item,
+            alpha: {from: 1, to: 0},
+            duration: 500,
+            onComplete: () => item.destroy() 
+        })
+    }
+
     hasItem(item) {
         return this.inventory.includes(item);
     }
 
-    emphasizeItem(item) {
+    emphasizeItem(item) {//new engine method
         this.tweens.add ({
             targets: item,
-            scale: 1.15,
+            scale: 5.5,
             duration: 100,
         });
     }
@@ -107,7 +116,7 @@ class AdventureScene extends Phaser.Scene {
     {
         this.tweens.add ({
             targets: item,
-            scale: 1,
+            scale: 5,
             duration: 100
         });
     }
