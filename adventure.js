@@ -95,6 +95,25 @@ class AdventureScene extends Phaser.Scene {
         return this.inventory.includes(item);
     }
 
+    emphasizeItem(item) {
+        this.tweens.add ({
+            targets: item,
+            scale: 1.15,
+            duration: 100,
+        });
+    }
+
+    deEmphasizeItem(item)
+    {
+        this.tweens.add ({
+            targets: item,
+            scale: 1,
+            duration: 100
+        });
+    }
+
+    
+
     gainItem(item) {
         if (this.inventory.includes(item)) {
             console.warn('gaining item already held:', item);

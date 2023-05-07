@@ -9,6 +9,8 @@ class Demo1 extends AdventureScene {
             .setFontSize(this.s * 2)
             .setInteractive()
             .on('pointerover', () => this.showMessage("Metal, bent."))
+            .on('pointerover', () => this.emphasizeItem(clip))
+            .on('pointerout', () => this.deEmphasizeItem(clip))
             .on('pointerdown', () => {
                 this.showMessage("No touching!");
                 this.tweens.add({
