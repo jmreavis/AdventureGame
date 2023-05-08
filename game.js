@@ -93,7 +93,6 @@ class Secret extends AdventureScene {
             .setFontSize(60)
             .on('pointerover', () => this.showMessage("Gross. I hate spiders..."))
 
-
         let key = this.add.text(1000, 725, "🔑")
             .setScale(2)
             .setInteractive()
@@ -117,11 +116,62 @@ class Main extends AdventureScene {
     }
 
     preload() {
+        this.load.image("main", "/assets/main_chamber.png")
+    }
+
+    onEnter() {
+        let background = this.add.sprite(715, 540,  "main")
+            .setScale(1.8)
+        
+        let painting = this.add.text(450, 600, " ")
+            .setInteractive()
+            .setFontSize(200)
+            .on('pointerover', () => this.showMessage("An old painting, covered in dust. Whoever used to live here must have loved nature"))
+        
+        let rocks = this.add.text(180, 780, " ")
+            .setFontSize(380)
+            .setInteractive()
+            .on('pointerover', () => this.showMessage("Those boulders are blocking my path. Guess that leaves two other directions..."))
+
+        let north = this.add.text(710, 780, " ")
+            .setInteractive()
+            .setFontSize(50)
+            .on('pointerover', () => this.showMessage("Go straight..."))
+            .on('pointerdown', () => this.gotoScene("grave"))
+        
+        let east = this.add.text(1200, 800, " ")
+            .setFontSize(50)
+            .setInteractive()
+            .on('pointerover', () => this.showMessage("Go right..."))
+            .on("pointerdown", () => this.gotoScene("exit"))
+    }
+}
+
+class Graveyard extends AdventureScene {
+    constructor() {
+        super("grave", "Graveyard")
+    }
+
+    preload() {
 
     }
 
     onEnter() {
-        this.add.text("To be continued...")
+
+    }
+}
+
+class Exit extends AdventureScene {
+    constructor() {
+        super("exit", "The End")
+    }
+
+    preload() {
+
+    }
+
+    onEnter() {
+
     }
 }
 
@@ -258,7 +308,7 @@ const game = new Phaser.Game({
         height: 1080
     },
     //scene: [Intro, Demo1, Demo2, Outro],
-    scene: [Cell, Secret, Main],
+    scene: [Main],
     title: "Adventure Game",
 });
 

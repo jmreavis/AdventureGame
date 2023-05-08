@@ -23,6 +23,9 @@ Asset sources:
 
 - Secret room background image via https://www.dreamstime.com/creepy-castle-basement-fantasy-arched-columns-image104230232. Edited in Krita to contain extra spooky details
 
+- Main chamber background via https://coolhunting.com/travel/inside-an-abandoned-italian-castle-that-looks-untouched/. Edited in Krita to add additional details
+
+
 Code sources:
 - `adventure.js` and `index.html` were created for this project [Adam Smith](https://github.com/rndmcnlly) and edited by me.
 - `game.js` was sketched by [Adam Smith](https://github.com/rndmcnlly) and rewritten by me.
