@@ -17,13 +17,15 @@ class Cell extends AdventureScene {
             .on('pointerover', () => {
                 if(this.hasItem('bricks')) {
                     this.showMessage("A couple blows from these bricks should bring the rest of it down")
+                } else if(this.hasItem('key')) {
+                    this.showMessage("The wall is down. I already got what I needed")
                 } else {
-                    this.showMessage("The wall is beginning to crumble")
+                    this.showMessage("The wall is beginning to crumble...")
                 }
             })
             .on('pointerdown', () => {
                 if(this.hasItem('bricks')) {
-                    this.showMessage("The wall came down. A faint glint pierces through the settling dust... ")
+                    this.showMessage("*CRASH*")
                     this.loseItem('bricks')
                     this.spriteRemove(brick)
                     this.gotoScene("secret")
@@ -33,15 +35,25 @@ class Cell extends AdventureScene {
             });
             
 
-        let doorHitBox = this.add.text(100, 200, "*")
+        let doorHitBox = this.add.text(100, 200, " ")
             .setScale(5)
             .setInteractive()
-            .on('pointerover', () => this.showMessage("Locked tight. I need to find a way out, and fast."))
-            .on('pointerdown', () => this.showMessage("It's locked."))
-        
-
-        let key = this.add.text(0, 0, "🔑")
-            .setScale(0)
+            .on('pointerover', () => {
+                if(this.hasItem("key")) {
+                    this.showMessage("I should be able to unlock this door now")
+                } else {
+                    this.showMessage("Locked tight. I need to find a way out, and fast.")
+                }
+            })
+            .on('pointerdown', () => {
+                if(this.hasItem("key")) {
+                    this.showMessage("*creak*")
+                    this.loseItem("key")
+                    this.gotoScene("main")
+                } else {
+                    this.showMessage("It's locked")
+                }
+            });
 
         let brick = this.add.text(1200, 1000, "🧱")
             .setScale(5)
@@ -54,6 +66,11 @@ class Cell extends AdventureScene {
                 this.gainItem('bricks')
                 this.spriteRemove(brick)
             });
+
+            if(this.hasItem('key')) {
+                brick.destroy()
+            }
+    
             
 }
 }
@@ -63,8 +80,48 @@ class Secret extends AdventureScene {
         super("secret", "Secret Chamber")
     }
 
+    preload() {
+        this.load.image("secret", "/assets/secret_room.jpg");
+    }
+
     onEnter() {
-        this.add.text(10, 10, "To be continued...").setFontSize(50);
+        let background = this.add.sprite(715, 540,  "secret")
+        background.setScale(1.8)
+
+        let spider = this.add.text(340, 560, " ")
+            .setInteractive()
+            .setFontSize(60)
+            .on('pointerover', () => this.showMessage("Gross. I hate spiders..."))
+
+
+        let key = this.add.text(1000, 725, "🔑")
+            .setScale(2)
+            .setInteractive()
+            .on('pointerover', () => {
+                this.showMessage("A key! Maybe it fits the lock to the cell in the other room...")
+                this.emphasizeItem(key)
+            })
+            .on('pointerout', () => this.deEmphasizeItem(key))
+            .on('pointerdown', () => {
+                this.gainItem("key")
+                this.showMessage("Key collected")
+                this.spriteRemove(key)
+                this.gotoScene("cell")
+            });
+    }
+}
+
+class Main extends AdventureScene {
+    constructor() {
+        super("main", "Main Chamber")
+    }
+
+    preload() {
+
+    }
+
+    onEnter() {
+        this.add.text("To be continued...")
     }
 }
 
@@ -201,7 +258,7 @@ const game = new Phaser.Game({
         height: 1080
     },
     //scene: [Intro, Demo1, Demo2, Outro],
-    scene: [Cell, Secret],
+    scene: [Cell, Secret, Main],
     title: "Adventure Game",
 });
 
