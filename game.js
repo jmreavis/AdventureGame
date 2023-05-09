@@ -128,12 +128,8 @@ class Main extends AdventureScene {
             .setFontSize(200)
             .on('pointerover', () => this.showMessage("An old painting, covered in dust. Whoever used to live here must have loved nature"))
             .on('pointerdown', () => {
-                if(this.hasItem("pick")) {
-                    this.showMessage("Something fell out of the painting...!")
-                    this.gainItem("coin")
-                } else {
-                    this.showMessage("I probably shouldn't disturb it")
-                }
+            this.showMessage("Something fell out of the painting...!")
+            this.gainItem("coin")  
             })
         
         let rocks = this.add.text(180, 780, " ")
@@ -223,15 +219,34 @@ class Graveyard extends AdventureScene {
 
 class Exit extends AdventureScene {
     constructor() {
-        super("exit", "The End")
+        super("exit", "Castle Exterior")
     }
 
     preload() {
-
+        this.load.image("exterior", "/assets/castle_outside.png")
     }
 
     onEnter() {
+        let background = this.add.sprite(480, 500, "exterior")
 
+        let monsterhb = this.add.text(375, 40, "M")
+            .setScale(25)
+            .setInteractive()
+            .on('pointerover', () =>  {
+                if(this.hasItem("bone")) {
+                    this.showMessage("What the hell is that thing? That bone! It might not hurt it, but it will at least give me a chance to escape!")
+                } else {
+                    this.showMessage("There's nothing I can do...")
+                }
+            })
+            .on('pointerdown', () => {
+                if(this.hasItem("bone")) {
+                    this.showMessage("*chuck*  RRRAAAAAAHHH")
+                    this.gotoScene("outro1")
+                } else {
+                    this.gotoScene("outro2")
+                }
+            })
     }
 }
 
@@ -348,13 +363,23 @@ class Intro extends Phaser.Scene {
     }
 }
 
-class Outro extends Phaser.Scene {
+class Outro1 extends Phaser.Scene {
     constructor() {
-        super('outro');
+        super('outro1');
     }
     create() {
-        this.add.text(50, 50, "That's all!").setFontSize(50);
-        this.add.text(50, 100, "Click anywhere to restart.").setFontSize(20);
+        this.add.text(50, 50, "I escaped the monster. I should be safe... for now")
+        this.input.on('pointerdown', () => this.scene.start('intro'));
+    }
+}
+
+class Outro2 extends Phaser.Scene {
+    constructor() {
+        super('outro2');
+    }
+
+    create() {
+        this.add.text(50, 50, "With no way to fight back or escape, I met my untimely end...")
         this.input.on('pointerdown', () => this.scene.start('intro'));
     }
 }
@@ -367,8 +392,7 @@ const game = new Phaser.Game({
         width: 1920,
         height: 1080
     },
-    //scene: [Intro, Demo1, Demo2, Outro],
-    scene: [Main, Graveyard],
-    title: "Adventure Game",
+    scene: [Intro, Cell, Secret, Main, Graveyard, Exit, Outro1, Outro2],
+    title: "Entombed",
 });
 
