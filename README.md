@@ -25,7 +25,7 @@ Asset sources:
 
 - Main chamber background via https://coolhunting.com/travel/inside-an-abandoned-italian-castle-that-looks-untouched/. Edited in Krita to add additional details
 
-
+- Graveyard image via https://stock.adobe.com/bg/images/3d-illustration-of-spooky-graveyard-at-halloween/534603384. Edited in Krita to add additional details
 Code sources:
 - `adventure.js` and `index.html` were created for this project [Adam Smith](https://github.com/rndmcnlly) and edited by me.
 - `game.js` was sketched by [Adam Smith](https://github.com/rndmcnlly) and rewritten by me.

@@ -127,11 +127,26 @@ class Main extends AdventureScene {
             .setInteractive()
             .setFontSize(200)
             .on('pointerover', () => this.showMessage("An old painting, covered in dust. Whoever used to live here must have loved nature"))
+            .on('pointerdown', () => {
+                if(this.hasItem("pick")) {
+                    this.showMessage("Something fell out of the painting...!")
+                    this.gainItem("coin")
+                } else {
+                    this.showMessage("I probably shouldn't disturb it")
+                }
+            })
         
         let rocks = this.add.text(180, 780, " ")
             .setFontSize(380)
             .setInteractive()
             .on('pointerover', () => this.showMessage("Those boulders are blocking my path. Guess that leaves two other directions..."))
+            .on('pointerdown', () => {
+                if(this.hasItem("pick")) {
+                    this.showMessage("That was a hefty swing... barely even made a dent")
+                } else {
+                    this.showMessage("There's no way I'm brute forcing my way through")
+                }
+            })
 
         let north = this.add.text(710, 780, " ")
             .setInteractive()
@@ -153,11 +168,56 @@ class Graveyard extends AdventureScene {
     }
 
     preload() {
-
+        this.load.image("graveyard", "/assets/graveyard.jpg")
     }
 
     onEnter() {
+        let background = this.add.sprite(711, 540, "graveyard")
+            .setScale(2.7)
 
+        let gravetext = this.add.text(815, 600, " ")
+            .setInteractive()
+            .setScale(9)
+            .on('pointerover', () => this.showMessage("Here lies Guppy, mans' best friend. 1921-1933"))
+
+        let back = this.add.text(50, 350, "Return")
+            .setScale(3)
+            .setInteractive()
+            .on('pointerover', () => this.showMessage("Click to return to previous scene"))
+            .on('pointerdown', () => this.gotoScene("main"))
+
+        let digtext = this.add.text(860, 850, " ")
+            .setInteractive()
+            .setScale(9)
+            .on('pointerover', () => {
+                if(this.hasItem("pick")) {
+                    this.showMessage("It looks like something's jutting out of the ground. That pick I found earlier could do the trick")
+                } else {
+                    this.showMessage("It looks like something's jutting out of the ground. If only I could reach it somehow...")
+                }
+            })
+            .on('pointerdown', () => {
+                if(this.hasItem("pick")) {
+                    this.gainItem("bone")
+                    this.showMessage("This...doesn't look like any dog bone I've ever seen before")
+                } else {
+                    this.showMessage("The dirt is too solid to dig through bare-handed")
+                }
+            })
+
+        let pick = this.add.text(100, 700, "⛏️")
+            .setScale(3)
+            .setInteractive()
+            .on('pointerover', () => {
+                this.emphasizeItem(pick)
+                this.showMessage("A pickaxe. Could come in handy")
+            })
+            .on('pointerout', () => this.deEmphasizeItem(pick))
+            .on('pointerdown', () => {
+                this.gainItem("pick")
+                this.spriteRemove(pick)
+                this.showMessage("Can't hurt to take along, just in case")
+            })
     }
 }
 
@@ -308,7 +368,7 @@ const game = new Phaser.Game({
         height: 1080
     },
     //scene: [Intro, Demo1, Demo2, Outro],
-    scene: [Main],
+    scene: [Main, Graveyard],
     title: "Adventure Game",
 });
 
