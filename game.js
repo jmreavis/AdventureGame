@@ -229,7 +229,7 @@ class Exit extends AdventureScene {
     onEnter() {
         let background = this.add.sprite(480, 500, "exterior")
 
-        let monsterhb = this.add.text(375, 40, "M")
+        let monsterhb = this.add.text(375, 40, " ")
             .setScale(25)
             .setInteractive()
             .on('pointerover', () =>  {
