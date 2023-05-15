@@ -4,7 +4,7 @@ class Cell extends AdventureScene {
     }
 
     preload() {
-        this.load.image("cell", "/assets/prison_cell.png");
+        this.load.image("cell", "./assets/prison_cell.png");
     }
 
     onEnter() {
@@ -81,7 +81,7 @@ class Secret extends AdventureScene {
     }
 
     preload() {
-        this.load.image("secret", "/assets/secret_room.jpg");
+        this.load.image("secret", "./assets/secret_room.jpg");
     }
 
     onEnter() {
@@ -116,7 +116,7 @@ class Main extends AdventureScene {
     }
 
     preload() {
-        this.load.image("main", "/assets/main_chamber.png")
+        this.load.image("main", "./assets/main_chamber.png")
     }
 
     onEnter() {
@@ -164,7 +164,7 @@ class Graveyard extends AdventureScene {
     }
 
     preload() {
-        this.load.image("graveyard", "/assets/graveyard.jpg")
+        this.load.image("graveyard", "./assets/graveyard.jpg")
     }
 
     onEnter() {
@@ -223,7 +223,7 @@ class Exit extends AdventureScene {
     }
 
     preload() {
-        this.load.image("exterior", "/assets/castle_outside.png")
+        this.load.image("exterior", "./assets/castle_outside.png")
     }
 
     onEnter() {
